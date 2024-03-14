@@ -48,6 +48,7 @@ posts_dict = {}
 for post in posts:
     posts_dict[post['id']] = post
 
+
 def index(request):
     context = {'posts': posts}
     return render(request, 'blog/index.html', context)
