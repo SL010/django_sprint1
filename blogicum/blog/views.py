@@ -1,6 +1,6 @@
-from django.shortcuts import render
-
 from django.http import Http404
+
+from django.shortcuts import render
 
 posts = [
     {
@@ -44,7 +44,9 @@ posts = [
                 укутывал их, чтобы не испортились от дождя.''',
     },
 ]
-
+posts_dict = {}
+for post in posts:
+    posts_dict[post['id']] = post
 
 def index(request):
     context = {'posts': posts}
@@ -57,7 +59,7 @@ def category_posts(request, category_slug):
 
 
 def post_detail(request, post_id):
-    context = {'post': posts[post_id]}
-    if post_id not in [post['id'] for post in posts]:
+    if post_id not in posts_dict:
         raise Http404
+    context = {'post': posts_dict[post_id]}
     return render(request, 'blog/detail.html', context)
